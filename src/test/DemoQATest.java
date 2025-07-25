@@ -92,6 +92,30 @@ public class DemoQaTests {
     }
 
     @Test
+    public void loginUser_useNonExistentUserName() {
+        final String userName = "m5";
+        final String password = "111P@ssw0rd";
+
+
+        driver.get("https://demoqa.com/login");
+
+        WebElement userNameInput = driver.findElement(By.id("userName"));
+        userNameInput.sendKeys(userName);
+        WebElement passwordInput = driver.findElement(By.cssSelector("#password"));
+        passwordInput.sendKeys(password);
+
+        scrollToBottomUsing(driver);
+
+        WebElement loginButton = driver.findElement(By.xpath("//*[@id='login']"));
+        loginButton.click();
+
+
+        WebElement passwordInputValue = driver.findElement(By.id("passwordInput-value"));
+        Assert.assertEquals(passwordInputValue.getText(), userName, "Invalid username or password!");
+
+    }
+
+    @Test
     public void loginUser_incorrectPassword() {
         final String userName = "m5";
         final String password = "P@ssw0rd";
