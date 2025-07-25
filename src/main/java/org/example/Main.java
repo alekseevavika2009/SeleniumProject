@@ -78,15 +78,19 @@ import java.util.stream.Collectors;
             tearDownDriver(driver);
         }
 
+     @BeforeClass
         public static WebDriver configureAndCreateDriver() {
                 System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver-win64\\сhromedriver.exe");
-
-                WebDriver driver = new ChromeDriver();
+            public static void setUp() {
+                 WebDriver driver = new ChromeDriver();
                 driver.get("https://demoqa.com/books");
             return null;
         }
+        }
 
-        public static void tearDownDriver(WebDriver driver) {
+
+   @AfterClass
+ public static void tearDownDriver(WebDriver driver) {
             driver.quit();
         }
 
@@ -94,8 +98,15 @@ import java.util.stream.Collectors;
             List<WebElement> tableRowsIncludingHeader = driver.findElements(By.className("rt-tr"));
             List<WebElement> getAllBookUrls =driver.findElements(By.tagName("span a"));
             System.out.println(printFullBookInfoToTerminal);
+            System.out.println(Arrays.toString(list.toArray()));
 
-            // 2. Для каждого элемента полученного листа используйте метод printFullBookInfoToTerminal, чтобы вывести информацию по всем книгам на экран
+            String printFullBookInfoToTerminal = String.join(printFullBookInfoToTerminal, imgSrc, "(" + bookLink, bookTitle + ")", bookAuthor, bookPublisher);
+                              return tableRowInfo;
+                         })
+                       .forEach(System.out::println);
+
+         driver.quit();
+
         }
 
         public static List<String> getAllBookUrls(WebDriver driver) {
